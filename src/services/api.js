@@ -1,11 +1,9 @@
 /**
  * SafeShield AI — API Service Layer
- * Centralises all backend and Claude API calls with consistent fallback logic
+ * Centralises all backend and Groq AI calls with consistent fallback logic
  */
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8000';
-const CLAUDE_API = 'https://api.anthropic.com/v1/messages';
-const MODEL = 'claude-sonnet-4-6';
 
 // ── Shared fetch helpers ─────────────────────────────────────────────────────
 
@@ -46,7 +44,7 @@ async function claudePost(apiKey, system, userContent, maxTokens = 800) {
 
 export async function checkBackendHealth() {
   try {
-    const res = await fetch(`${BACKEND_URL}/health`, { signal: AbortSignal.timeout(3000) });
+    const res = await fetch(`${BACKEND_URL}/api/dashboard-stats`, { signal: AbortSignal.timeout(4000) });
     return res.ok;
   } catch {
     return false;

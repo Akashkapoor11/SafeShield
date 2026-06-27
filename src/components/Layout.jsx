@@ -50,7 +50,7 @@ export default function Layout({ children }) {
             <div className="logo-sub">Digital Public Safety Intelligence</div>
           </div>
         </div>
-        <div className="hackathon-badge">🏆 ET AI Hackathon 2026 · PS6</div>
+
         <div className="live-pill">
           <span className="live-dot" /><span>SYSTEM LIVE</span>
         </div>
@@ -107,7 +107,7 @@ export default function Layout({ children }) {
             <div>Uptime: <span style={{ color:'#10b981' }}>99.97%</span></div>
             <div><span style={{ color:'#10b981' }}>● All agents nominal</span></div>
             <div style={{ marginTop:6, color:'#4b5563', fontSize:9, lineHeight:1.5 }}>
-              ET AI Hackathon 2026<br/>Problem Statement 6<br/>Built for Bharat 🇮🇳
+              Digital Public Safety · India 🇮🇳
             </div>
           </div>
         </nav>
