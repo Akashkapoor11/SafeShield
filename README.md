@@ -1,26 +1,24 @@
 # 🛡️ SafeShield AI
-### India's Real-Time Digital Public Safety Intelligence Platform
-**ET AI Hackathon 2026 · Problem Statement 6 · Built with Claude claude-sonnet-4-6**
+### India's Real-Time Digital Public Safety Intelligence Platfor
 
-[![Open Demo](https://img.shields.io/badge/Demo-Live%20App-blue)](dist/index.html) [![Backend](https://img.shields.io/badge/Backend-FastAPI-green)](backend/)
 
 ---
 
-## 🎯 What It Does
+##  What It Does
 
 SafeShield AI is a **multi-agent AI platform** that defeats digital fraud — detecting scams **before** money moves, not after.
 
 | Agent | Capability | AI Stack |
 |-------|-----------|----------|
-| 📞 Scam Detector | Real-time call analysis — 47s detection lead time | Claude claude-sonnet-4-6 NLP |
-| 💵 Currency Scanner | FICN counterfeit detection in <2s | Claude Vision API |
-| 🕸️ Fraud Network | Full criminal ring mapping | D3.js Graph AI |
-| 🗺️ Crime Map | Predictive hotspot intelligence | React-Leaflet + LSTM |
-| 💬 Citizen Shield | Multilingual chatbot — 12 Indian languages | Claude claude-sonnet-4-6 |
+|  Scam Detector | Real-time call analysis — 47s detection lead time | Claude claude-sonnet-4-6 NLP |
+|  Currency Scanner | FICN counterfeit detection in <2s | Claude Vision API |
+|  Fraud Network | Full criminal ring mapping | D3.js Graph AI |
+|  Crime Map | Predictive hotspot intelligence | React-Leaflet + LSTM |
+|  Citizen Shield | Multilingual chatbot — 12 Indian languages | Claude claude-sonnet-4-6 |
 
 ---
 
-## 🚀 Quick Start
+##  Quick Start
 
 ### Frontend Only (opens in browser, no setup)
 ```bash
@@ -54,7 +52,7 @@ Enter your Anthropic API key in the app (banner at top of each AI module) → al
 
 ---
 
-## 🌐 Deploy to Vercel (Live URL in 2 minutes)
+##  Deploy to Vercel (Live URL in 2 minutes)
 
 ```bash
 # 1. Push to GitHub
@@ -70,7 +68,7 @@ git push -u origin main
 
 ---
 
-## 📁 Project Structure
+##  Project Structure
 
 ```
 safeshield-ai/
@@ -108,7 +106,7 @@ safeshield-ai/
 
 ---
 
-## 🎬 Demo Guide (10 Minutes)
+##  Demo Guide (10 Minutes)
 
 See **`DEMO_SCRIPT.md`** for the complete word-for-word video narration.
 
@@ -121,7 +119,7 @@ See **`DEMO_SCRIPT.md`** for the complete word-for-word video narration.
 
 ---
 
-## 🏗️ Architecture
+##  Architecture
 
 ```
 Data Sources → Kafka/Flink Ingestion → 5 AI Agents → Intelligence Fusion → Action Layer
@@ -134,7 +132,7 @@ OSINT                               LSTM (GeoIntel)           Citizen SMS
 
 ---
 
-## 📊 Performance Metrics
+##  Performance Metrics
 
 | Metric | Value |
 |--------|-------|
@@ -148,7 +146,7 @@ OSINT                               LSTM (GeoIntel)           Citizen SMS
 
 ---
 
-## 💰 Business Case
+##  Business Case
 
 - **Target:** ₹12,000 Cr+ annual cybercrime losses
 - **Year 1 goal:** 10% interception = ₹1,200 Cr saved
@@ -158,22 +156,10 @@ OSINT                               LSTM (GeoIntel)           Citizen SMS
 
 ---
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 **Frontend:** React 18 · Vite 5 · React Router 6 · Recharts · D3.js · React-Leaflet  
 **Backend:** FastAPI · Python 3.11 · Anthropic SDK  
 **AI:** Claude claude-sonnet-4-6 (text + vision) · IndicBERT · GraphSAGE  
 **Infra:** Vercel (frontend) · Railway/Render (backend) · Kubernetes (production)
 
----
-
-## ⚖️ Compliance
-
-- DPDP Act 2023 compliant — PII anonymized at ingestion
-- IT Act 2000 Sec. 65B — court-admissible evidence packages
-- Federated learning — banks contribute without sharing raw data
-- DPDP Act compliant evidence packaging
-
----
-
-*SafeShield AI · ET AI Hackathon 2026 · PS6: Digital Public Safety · Built for Bharat 🇮🇳*
