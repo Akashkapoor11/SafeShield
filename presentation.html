@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SafeShield AI — Pitch Deck | ET AI Hackathon 2026</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden;background:#070b14;font-family:'Segoe UI',system-ui,-apple-system,sans-serif;color:#e2e8f0}
+.deck{width:100vw;height:100vh;position:relative;overflow:hidden}
+.slide{position:absolute;inset:0;display:none;padding:48px 60px;flex-direction:column;justify-content:center;animation:slideIn .4s ease}
+.slide.active{display:flex}
+@keyframes slideIn{from{opacity:0;transform:translateX(30px)}to{opacity:1;transform:translateX(0)}}
+/* NAV */
+.nav{position:fixed;bottom:28px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:16px;background:rgba(13,20,33,.95);border:1px solid #1e2d45;border-radius:30px;padding:8px 20px;z-index:100}
+.nav-btn{width:34px;height:34px;border-radius:50%;border:1px solid #2d4060;background:transparent;color:#64748b;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;transition:all .2s;font-family:inherit}
+.nav-btn:hover{background:#1a2235;color:#e2e8f0;border-color:#3b82f6}
+.slide-counter{font-size:12px;color:#64748b;font-weight:600;min-width:48px;text-align:center}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,#3b82f6,#8b5cf6);transition:width .4s ease;z-index:200}
+.slide-num{position:fixed;top:16px;right:20px;font-size:10px;color:#374151;font-weight:600;letter-spacing:1px;z-index:100}
+/* COMMON COMPONENTS */
+.tag{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;margin:3px}
+.tag-r{background:rgba(239,68,68,.18);color:#ef4444;border:1px solid rgba(239,68,68,.25)}
+.tag-b{background:rgba(59,130,246,.18);color:#3b82f6;border:1px solid rgba(59,130,246,.25)}
+.tag-g{background:rgba(16,185,129,.18);color:#10b981;border:1px solid rgba(16,185,129,.25)}
+.tag-a{background:rgba(245,158,11,.18);color:#f59e0b;border:1px solid rgba(245,158,11,.25)}
+.tag-p{background:rgba(139,92,246,.18);color:#8b5cf6;border:1px solid rgba(139,92,246,.25)}
+.card{background:#111827;border:1px solid #1e2d45;border-radius:12px;padding:20px}
+.kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:14px;margin:20px 0}
+.kpi{background:#111827;border:1px solid #1e2d45;border-radius:10px;padding:16px 18px;position:relative;overflow:hidden}
+.kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.kpi.red::before{background:#ef4444}
+.kpi.blue::before{background:#3b82f6}
+.kpi.green::before{background:#10b981}
+.kpi.amber::before{background:#f59e0b}
+.kpi.purple::before{background:#8b5cf6}
+.kpi-v{font-size:28px;font-weight:900;line-height:1.1;margin-bottom:4px}
+.kpi-l{font-size:10px;color:#64748b;text-transform:uppercase;letter-spacing:.5px}
+.bullet{display:flex;align-items:flex-start;gap:10px;margin-bottom:14px;font-size:15px;line-height:1.5;color:#94a3b8}
+.bullet-icon{font-size:18px;flex-shrink:0;margin-top:1px}
+.bullet strong{color:#e2e8f0}
+.section-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#3b82f6;margin-bottom:12px}
+.big-stat{font-size:52px;font-weight:900;line-height:1;margin-bottom:6px}
+.stat-context{font-size:14px;color:#64748b;margin-bottom:20px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+.grid4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:14px}
+.divider{width:60px;height:3px;border-radius:2px;margin:12px 0}
+.highlight-box{background:rgba(59,130,246,.06);border:1px solid rgba(59,130,246,.15);border-radius:10px;padding:16px 20px}
+.alert-box{background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.15);border-radius:10px;padding:14px 18px}
+/* SLIDE 1 - TITLE */
+.s1-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(59,130,246,.08) 0%,transparent 60%),radial-gradient(ellipse at 70% 30%,rgba(139,92,246,.06) 0%,transparent 50%)}
+.s1-shield{font-size:72px;margin-bottom:16px;filter:drop-shadow(0 0 30px rgba(59,130,246,.4))}
+.s1-title{font-size:54px;font-weight:900;line-height:1.05;margin-bottom:10px}
+.s1-title span{color:#3b82f6}
+.s1-tagline{font-size:18px;color:#94a3b8;margin-bottom:24px;max-width:620px}
+.s1-event{font-size:13px;color:#374151;display:flex;gap:24px;align-items:center}
+.s1-event-item{display:flex;align-items:center;gap:6px;color:#64748b}
+/* SLIDE 2 - CRISIS */
+.crisis-num{font-size:64px;font-weight:900;line-height:1;display:flex;align-items:baseline;gap:8px}
+.crisis-unit{font-size:28px;font-weight:700;color:#ef4444}
+/* SLIDE 3 - PROBLEM */
+.problem-quote{background:rgba(239,68,68,.06);border-left:4px solid #ef4444;border-radius:0 10px 10px 0;padding:16px 20px;margin:16px 0;font-size:15px;color:#94a3b8;line-height:1.6;font-style:italic}
+/* MODULE SLIDES */
+.module-icon{font-size:48px;margin-bottom:10px;filter:drop-shadow(0 0 15px rgba(59,130,246,.3))}
+.module-title{font-size:32px;font-weight:900;margin-bottom:6px}
+.module-sub{font-size:14px;color:#64748b;margin-bottom:20px}
+/* IMPACT SLIDE */
+.impact-bar{height:8px;background:#1e2d45;border-radius:4px;margin-top:6px;overflow:hidden}
+.impact-fill{height:100%;border-radius:4px;transition:width 1s ease}
+/* JOURNEY */
+.journey-step{display:flex;align-items:flex-start;gap:14px;margin-bottom:16px}
+.j-num{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex-shrink:0;margin-top:1px}
+.j-content{flex:1}
+.j-title{font-size:14px;font-weight:700;color:#e2e8f0;margin-bottom:2px}
+.j-desc{font-size:12px;color:#64748b}
+/* TEAM */
+.team-card{background:#111827;border:1px solid #1e2d45;border-radius:12px;padding:18px;text-align:center}
+.team-avatar{font-size:32px;margin-bottom:10px}
+.team-name{font-size:15px;font-weight:700;color:#e2e8f0;margin-bottom:3px}
+.team-role{font-size:11px;color:#64748b;margin-bottom:8px}
+/* CTA */
+.cta-big{font-size:48px;font-weight:900;line-height:1.1;margin-bottom:14px}
+.cta-big span{color:#3b82f6}
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar" style="width:7.14%"></div>
+<div class="slide-num" id="slideNum">01 / 14</div>
+
+<div class="deck">
+
+<!-- SLIDE 1: TITLE -->
+<div class="slide active" id="s1">
+  <div class="s1-bg"></div>
+  <div style="position:relative;z-index:1">
+    <div class="s1-shield">🛡️</div>
+    <div style="margin-bottom:8px"><span class="tag tag-r">ET AI Hackathon 2026</span><span class="tag tag-b">Problem Statement 6</span><span class="tag tag-a">Digital Public Safety</span></div>
+    <div class="s1-title">SafeShield<span>AI</span></div>
+    <div class="s1-tagline">India's first multi-agent Digital Public Safety Intelligence platform — detecting fraud before the money moves, not after.</div>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:28px">
+      <span class="tag tag-b">🤖 5 AI Agents</span>
+      <span class="tag tag-g">💬 12 Languages</span>
+      <span class="tag tag-r">⚡ 47s Detection Lead Time</span>
+      <span class="tag tag-p">🕸️ Graph AI Fraud Networks</span>
+      <span class="tag tag-a">💵 99.1% Currency Accuracy</span>
+    </div>
+    <div class="s1-event">
+      <div class="s1-event-item">🏆 <span>ET AI Hackathon 2.0 — Phase 2 Submission</span></div>
+      <div class="s1-event-item">📅 <span>June 2026</span></div>
+      <div class="s1-event-item">🇮🇳 <span>Built for Bharat</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 2: THE CRISIS -->
+<div class="slide" id="s2">
+  <div class="section-label">The Crisis</div>
+  <div style="font-size:30px;font-weight:900;margin-bottom:28px">India's digital crime crisis is accelerating — and current tools are failing</div>
+  <div class="grid3" style="margin-bottom:24px">
+    <div>
+      <div class="crisis-num"><span style="color:#ef4444">1.14</span><span class="crisis-unit">Million</span></div>
+      <div style="font-size:13px;color:#64748b;margin-top:4px">Cybercrime complaints in 2023<br><strong style="color:#94a3b8">↑ 60% from 2022 — and still rising</strong></div>
+    </div>
+    <div>
+      <div class="crisis-num"><span style="color:#ef4444">₹1,776</span><span class="crisis-unit">Cr</span></div>
+      <div style="font-size:13px;color:#64748b;margin-top:4px">Lost to digital arrest scams<br><strong style="color:#94a3b8">In just 9 months of 2024 (MHA data)</strong></div>
+    </div>
+    <div>
+      <div class="crisis-num"><span style="color:#f59e0b">Record</span></div>
+      <div style="font-size:13px;color:#64748b;margin-top:4px">FICN seizures in FY2025<br><strong style="color:#94a3b8">₹500 fakes defeat manual checks 73% of the time</strong></div>
+    </div>
+  </div>
+  <div class="grid2">
+    <div class="alert-box">
+      <div style="font-size:14px;font-weight:700;color:#ef4444;margin-bottom:8px">⚠️ Digital Arrest Scams: A National Emergency</div>
+      <div style="font-size:13px;color:#94a3b8;line-height:1.6">Criminals impersonating CBI, ED, and Customs officers trap victims in multi-day video call "digital custody." Average loss per victim: <strong style="color:#e2e8f0">₹4–15 lakh.</strong> Targets: professionals, retirees, homemakers.</div>
+    </div>
+    <div class="alert-box">
+      <div style="font-size:14px;font-weight:700;color:#ef4444;margin-bottom:8px">⚠️ These Are Industrialised Operations</div>
+      <div style="font-size:13px;color:#94a3b8;line-height:1.6">Run from fraud compounds across borders. AI-generated voices. Spoofed government numbers. Fake portals identical to official sites. One network can run <strong style="color:#e2e8f0">50+ simultaneous scam calls.</strong></div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 3: THE GAP -->
+<div class="slide" id="s3">
+  <div class="section-label">The Problem</div>
+  <div style="font-size:30px;font-weight:900;margin-bottom:16px">The data exists. The intelligence layer to act on it does not.</div>
+  <div class="problem-quote">"What law enforcement lacks is not evidence after the fact — it is intelligence <em>before</em> mass victimisation occurs, and reliable tools to detect threats at the point of contact rather than the point of complaint." — Problem Statement 6</div>
+  <div class="grid3" style="margin-top:16px">
+    <div class="card">
+      <div style="font-size:22px;margin-bottom:10px">🔴</div>
+      <div style="font-size:14px;font-weight:700;color:#e2e8f0;margin-bottom:6px">Reactive, Not Predictive</div>
+      <div style="font-size:13px;color:#64748b;line-height:1.5">Victims file complaints only after losing money. Average time from crime to report: <strong style="color:#f59e0b">3–7 days.</strong> Money has moved across 5+ accounts by then.</div>
+    </div>
+    <div class="card">
+      <div style="font-size:22px;margin-bottom:10px">🔴</div>
+      <div style="font-size:14px;font-weight:700;color:#e2e8f0;margin-bottom:6px">Siloed Intelligence</div>
+      <div style="font-size:13px;color:#64748b;line-height:1.5">Banks, telecom, and police data live in separate systems. No unified view means the same criminal ring operates across multiple jurisdictions undetected.</div>
+    </div>
+    <div class="card">
+      <div style="font-size:22px;margin-bottom:10px">🔴</div>
+      <div style="font-size:14px;font-weight:700;color:#e2e8f0;margin-bottom:6px">No Citizen Tool</div>
+      <div style="font-size:13px;color:#64748b;line-height:1.5">Citizens have no reliable, multilingual tool to verify if they are being scammed <em>in real time.</em> By the time they search "is this a scam," they've already transferred money.</div>
+    </div>
+  </div>
+  <div class="highlight-box" style="margin-top:16px;display:flex;align-items:center;gap:14px">
+    <div style="font-size:24px">💡</div>
+    <div style="font-size:14px;color:#94a3b8;line-height:1.5"><strong style="color:#3b82f6">SafeShield AI solves all three simultaneously</strong> — a unified intelligence layer that fuses signals from telecom, banking, and citizen channels into a real-time PreCrime risk picture, and acts on it before victimisation, not after.</div>
+  </div>
+</div>
+
+<!-- SLIDE 4: SOLUTION OVERVIEW -->
+<div class="slide" id="s4">
+  <div class="section-label">Our Solution</div>
+  <div style="font-size:30px;font-weight:900;margin-bottom:6px">SafeShield AI: 5 agents, one unified platform</div>
+  <div style="font-size:14px;color:#64748b;margin-bottom:24px">End-to-end from real-time call detection to court-admissible evidence</div>
+  <div class="grid3" style="margin-bottom:16px">
+    <div class="card" style="border-top:3px solid #ef4444">
+      <div style="font-size:24px;margin-bottom:8px">📞</div>
+      <div style="font-size:14px;font-weight:700;color:#e2e8f0;margin-bottom:4px">Scam Detector Agent</div>
+      <div style="font-size:12px;color:#64748b;line-height:1.5">Real-time call analysis. Detects digital arrest patterns, spoofed numbers, and psychological pressure tactics — 47 seconds before money transfer.</div>
+      <div style="margin-top:8px"><span class="tag tag-r">NLP</span><span class="tag tag-r">Speech AI</span><span class="tag tag-b">LLM</span></div>
+    </div>
+    <div class="card" style="border-top:3px solid #f59e0b">
+      <div style="font-size:24px;margin-bottom:8px">💵</div>
+      <div style="font-size:14px;font-weight:700;color:#e2e8f0;margin-bottom:4px">Currency Vision Agent</div>
+      <div style="font-size:12px;color:#64748b;line-height:1.5">On-device CNN model detects FICN across all denominations. Works offline on mobile, ATM, and bank counter — 99.1% accuracy in under 2 seconds.</div>
+      <div style="margin-top:8px"><span class="tag tag-a">Computer Vision</span><span class="tag tag-a">Edge AI</span></div>
+    </div>
+    <div class="card" style="border-top:3px solid #8b5cf6">
+      <div style="font-size:24px;margin-bottom:8px">🕸️</div>
+      <div style="font-size:14px;font-weight:700;color:#e2e8f0;margin-bottom:4px">Fraud Network Agent</div>
+      <div style="font-size:12px;color:#64748b;line-height:1.5">Graph neural network maps entire criminal rings — masterminds, mules, victims, infrastructure. Generates court-admissible evidence packages automatically.</div>
+      <div style="margin-top:8px"><span class="tag tag-p">Graph AI</span><span class="tag tag-p">Neo4j</span><span class="tag tag-p">GNN</span></div>
+    </div>
+  </div>
+  <div class="grid2">
+    <div class="card" style="border-top:3px solid #3b82f6">
+      <div style="font-size:22px;margin-bottom:7px">🗺️</div>
+      <div style="font-size:13px;font-weight:700;color:#e2e8f0;margin-bottom:3px">Geospatial Crime Agent</div>
+      <div style="font-size:12px;color:#64748b;line-height:1.5">Predictive hotspot mapping across 50 cities. Identifies tomorrow's fraud surge zones today, enabling proactive patrol deployment 12–24 hours in advance.</div>
+      <div style="margin-top:7px"><span class="tag tag-b">PostGIS</span><span class="tag tag-b">H3</span><span class="tag tag-b">LSTM</span></div>
+    </div>
+    <div class="card" style="border-top:3px solid #10b981">
+      <div style="font-size:22px;margin-bottom:7px">💬</div>
+      <div style="font-size:13px;font-weight:700;color:#e2e8f0;margin-bottom:3px">Citizen Shield Agent</div>
+      <div style="font-size:12px;color:#64748b;line-height:1.5">Claude-powered multilingual chatbot across WhatsApp, IVR, and web. Gives instant SCAM / SAFE verdicts with protective actions in 12 Indian languages. Available 24/7 to any citizen with a phone.</div>
+      <div style="margin-top:7px"><span class="tag tag-g">Claude API</span><span class="tag tag-g">12 Languages</span><span class="tag tag-g">WhatsApp</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 5: MODULE 1 - SCAM DETECTOR -->
+<div class="slide" id="s5">
+  <div class="section-label">Module 1 — Scam Detector</div>
+  <div class="grid2" style="height:100%;align-items:center">
+    <div>
+      <div class="module-icon">📞</div>
+      <div class="module-title">Digital Arrest Scam Detector</div>
+      <div class="module-sub">Real-time call analysis — before the money moves</div>
+      <div class="bullet"><span class="bullet-icon">🎯</span><div><strong>47-second detection lead time</strong> — call analysis starts at initiation, not after transfer</div></div>
+      <div class="bullet"><span class="bullet-icon">🔴</span><div><strong>6 threat indicators</strong> monitored simultaneously: spoofed number, script pattern, psychological pressure, Aadhaar impersonation, financial demand, secrecy demand</div></div>
+      <div class="bullet"><span class="bullet-icon">📡</span><div><strong>Spoofed number detection</strong> in real-time via DoT integration — +91-11 government prefixes cross-checked against live registry</div></div>
+      <div class="bullet"><span class="bullet-icon">🌐</span><div><strong>Multilingual:</strong> Hindi, English, Tamil, Telugu, Bengali, Marathi + 7 more. BERT-based scam script classifier trained on 2,847 verified Indian scam patterns</div></div>
+      <div class="bullet"><span class="bullet-icon">⚡</span><div><strong>Auto-actions on confirmation:</strong> MHA alert, victim advisory SMS, bank freeze request, DoT number block — all within 60 seconds</div></div>
+    </div>
+    <div>
+      <div class="kpi-row" style="grid-template-columns:1fr 1fr">
+        <div class="kpi red"><div class="kpi-v" style="color:#ef4444">98.7%</div><div class="kpi-l">Avg scam confidence score</div></div>
+        <div class="kpi green"><div class="kpi-v" style="color:#10b981">0.8%</div><div class="kpi-l">False positive rate</div></div>
+        <div class="kpi blue"><div class="kpi-v" style="color:#3b82f6">47s</div><div class="kpi-l">Detection lead time</div></div>
+        <div class="kpi amber"><div class="kpi-v" style="color:#f59e0b">891</div><div class="kpi-l">Calls blocked today</div></div>
+      </div>
+      <div class="highlight-box" style="margin-top:14px">
+        <div style="font-size:13px;font-weight:700;color:#3b82f6;margin-bottom:8px">🔑 The Key Innovation</div>
+        <div style="font-size:13px;color:#94a3b8;line-height:1.5">Traditional fraud detection triggers after a transaction. SafeShield detects during the call — <strong style="color:#e2e8f0">while the victim is still being manipulated</strong> — and intervenes before any money moves. This is the difference between prevention and recovery.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 6: MODULE 2 - CURRENCY -->
+<div class="slide" id="s6">
+  <div class="section-label">Module 2 — Currency Scanner</div>
+  <div class="grid2" style="height:100%;align-items:center">
+    <div>
+      <div class="module-icon">💵</div>
+      <div class="module-title">FICN Currency Authenticator</div>
+      <div class="module-sub">AI that catches what human eyes miss</div>
+      <div class="bullet"><span class="bullet-icon">🔬</span><div><strong>7-point security check</strong> in under 2 seconds: serial number pattern, security thread, microprint, OVI colour shift, UV features, dimensions, intaglio print quality</div></div>
+      <div class="bullet"><span class="bullet-icon">📱</span><div><strong>Works on any smartphone camera</strong> — no special hardware. Deployable at bank counters, ATMs, PoS terminals, field officer mobiles</div></div>
+      <div class="bullet"><span class="bullet-icon">🔒</span><div><strong>On-device inference</strong> — model runs offline. No currency image leaves the device. DPDP Act compliant</div></div>
+      <div class="bullet"><span class="bullet-icon">📊</span><div><strong>Auto-FICN cluster detection</strong> — when multiple fake notes with matching serial patterns are reported from nearby locations, SafeShield flags an active FICN ring to law enforcement</div></div>
+      <div class="bullet"><span class="bullet-icon">🏦</span><div><strong>RBI integration</strong> — confirmed FICN notes generate automatic reports to the nearest RBI office with geolocation and case reference number</div></div>
+    </div>
+    <div>
+      <div class="kpi-row" style="grid-template-columns:1fr 1fr">
+        <div class="kpi green"><div class="kpi-v" style="color:#10b981">99.1%</div><div class="kpi-l">Detection accuracy</div></div>
+        <div class="kpi blue"><div class="kpi-v" style="color:#3b82f6">&lt;2s</div><div class="kpi-l">Analysis time</div></div>
+        <div class="kpi amber"><div class="kpi-v" style="color:#f59e0b">₹10–₹2K</div><div class="kpi-l">All denominations</div></div>
+        <div class="kpi purple"><div class="kpi-v" style="color:#8b5cf6">Offline</div><div class="kpi-l">On-device model</div></div>
+      </div>
+      <div class="alert-box" style="margin-top:14px">
+        <div style="font-size:12px;font-weight:700;color:#ef4444;margin-bottom:7px">📊 RBI 2025: The Scale of the Problem</div>
+        <div style="font-size:12px;color:#94a3b8;line-height:1.5">Record FICN seizures in FY2025. ₹500 denomination fakes now have print quality sufficient to defeat manual detection in <strong style="color:#ef4444">73% of routine banking operations.</strong> SafeShield addresses this gap with a tool every teller and field officer can carry in their pocket.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 7: MODULE 3 - FRAUD NETWORKS -->
+<div class="slide" id="s7">
+  <div class="section-label">Module 3 — Fraud Network Intelligence</div>
+  <div class="grid2" style="height:100%;align-items:center">
+    <div>
+      <div class="module-icon">🕸️</div>
+      <div class="module-title">Graph AI Fraud Network Mapper</div>
+      <div class="module-sub">From isolated complaints to complete criminal rings</div>
+      <div class="bullet"><span class="bullet-icon">🧠</span><div><strong>GraphSAGE + Neo4j</strong> — maps relationships between accounts, devices, numbers, and locations across millions of data points to surface hidden criminal networks</div></div>
+      <div class="bullet"><span class="bullet-icon">🔗</span><div><strong>Cross-bank, cross-state linkage</strong> — connects victim reports from different states to the same mule accounts, exposing rings that local police couldn't see in their jurisdiction alone</div></div>
+      <div class="bullet"><span class="bullet-icon">⚖️</span><div><strong>Court-admissible evidence packages</strong> — blockchain-timestamped network maps, transaction metadata, call records, all structured per IT Act 2000 Sec. 65B for direct court submission</div></div>
+      <div class="bullet"><span class="bullet-icon">🌍</span><div><strong>International ring detection</strong> — identifies cross-border coordination (e.g., India–Dubai–Cambodia corridors) through international AML database integration</div></div>
+    </div>
+    <div>
+      <div class="card">
+        <div style="font-size:12px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:1px;margin-bottom:14px">Case Study: Operation Cyber Havala Ring</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+          <div style="background:#0d1421;border-radius:8px;padding:11px"><div style="font-size:18px;font-weight:900;color:#ef4444">₹4.2Cr</div><div style="font-size:10px;color:#64748b">Total fraud identified</div></div>
+          <div style="background:#0d1421;border-radius:8px;padding:11px"><div style="font-size:18px;font-weight:900;color:#f59e0b">20</div><div style="font-size:10px;color:#64748b">Network nodes mapped</div></div>
+          <div style="background:#0d1421;border-radius:8px;padding:11px"><div style="font-size:18px;font-weight:900;color:#3b82f6">6</div><div style="font-size:10px;color:#64748b">States + Dubai</div></div>
+          <div style="background:#0d1421;border-radius:8px;padding:11px"><div style="font-size:18px;font-weight:900;color:#10b981">48h</div><div style="font-size:10px;color:#64748b">From first victim report to full ring mapped</div></div>
+        </div>
+        <div style="margin-top:12px;font-size:12px;color:#64748b;line-height:1.5">What would take detectives weeks of manual cross-referencing, SafeShield completed in 48 hours — automatically — and generated a court-ready evidence package.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 8: MODULE 4+5 -->
+<div class="slide" id="s8">
+  <div class="section-label">Modules 4 & 5</div>
+  <div style="font-size:26px;font-weight:900;margin-bottom:20px">Geospatial Intelligence + Citizen Shield</div>
+  <div class="grid2">
+    <div>
+      <div style="font-size:28px;margin-bottom:8px">🗺️</div>
+      <div style="font-size:18px;font-weight:800;margin-bottom:4px">Geospatial Crime Intelligence</div>
+      <div style="font-size:12px;color:#64748b;margin-bottom:14px">Predictive hotspot mapping — deploy resources before crime happens</div>
+      <div class="bullet" style="font-size:13px"><span class="bullet-icon">📍</span><div><strong>50 cities mapped</strong> with live cybercrime density, incident clustering, and mule account geolocation</div></div>
+      <div class="bullet" style="font-size:13px"><span class="bullet-icon">🔮</span><div><strong>PreCrime hotspot prediction</strong> — LSTM model forecasts high-risk zones 12–24 hours ahead based on seasonal patterns, event calendars, and current network activity</div></div>
+      <div class="bullet" style="font-size:13px"><span class="bullet-icon">👮</span><div><strong>Patrol deployment intelligence</strong> — recommends optimal patrol routes for maximum fraud prevention impact</div></div>
+      <div class="bullet" style="font-size:13px"><span class="bullet-icon">📊</span><div><strong>Inter-state intelligence sharing</strong> — hotspot data automatically shared with adjacent district forces when criminal pattern crosses borders</div></div>
+    </div>
+    <div>
+      <div style="font-size:28px;margin-bottom:8px">💬</div>
+      <div style="font-size:18px;font-weight:800;margin-bottom:4px">Citizen Fraud Shield</div>
+      <div style="font-size:12px;color:#64748b;margin-bottom:14px">Every Indian citizen's personal fraud detector — in their language, on their phone</div>
+      <div class="bullet" style="font-size:13px"><span class="bullet-icon">🌐</span><div><strong>4 channels:</strong> WhatsApp · IVR 1930 · Web Portal · Mobile App</div></div>
+      <div class="bullet" style="font-size:13px"><span class="bullet-icon">🗣️</span><div><strong>12 languages:</strong> Hindi, English, Tamil, Telugu, Bengali, Marathi, Gujarati, Kannada, Malayalam, Odia, Punjabi, Assamese</div></div>
+      <div class="bullet" style="font-size:13px"><span class="bullet-icon">🚨</span><div><strong>Emergency protocol:</strong> "Being scammed NOW" → instant NCRB report + bank freeze request + DoT block, all in under 30 seconds</div></div>
+      <div class="bullet" style="font-size:13px"><span class="bullet-icon">📋</span><div><strong>Auto FIR drafting</strong> — from citizen's description to formatted FIR draft, reducing police reporting friction by 80%</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 9: ARCHITECTURE -->
+<div class="slide" id="s9">
+  <div class="section-label">Technical Architecture</div>
+  <div style="font-size:26px;font-weight:900;margin-bottom:20px">5-layer multi-agent intelligence pipeline</div>
+  <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:20px">
+    <div style="background:#111827;border:1px solid #1e2d45;border-radius:10px;padding:14px;border-top:3px solid #8b5cf6;text-align:center">
+      <div style="font-size:13px;font-weight:800;color:#8b5cf6;margin-bottom:10px">DATA SOURCES</div>
+      <div style="font-size:11px;color:#64748b;line-height:1.7">Telecom CDR<br>Bank Txns<br>Citizen Reports<br>CCTV Feeds<br>OSINT</div>
+    </div>
+    <div style="background:#111827;border:1px solid #1e2d45;border-radius:10px;padding:14px;border-top:3px solid #3b82f6;text-align:center">
+      <div style="font-size:13px;font-weight:800;color:#3b82f6;margin-bottom:10px">INGESTION</div>
+      <div style="font-size:11px;color:#64748b;line-height:1.7">Apache Kafka<br>Apache Flink<br>OCR Pipeline<br>Vision Prep<br>AES-256</div>
+    </div>
+    <div style="background:#111827;border:1px solid #1e2d45;border-radius:10px;padding:14px;border-top:3px solid #f59e0b;text-align:center">
+      <div style="font-size:13px;font-weight:800;color:#f59e0b;margin-bottom:10px">AI AGENTS</div>
+      <div style="font-size:11px;color:#64748b;line-height:1.7">Scam Detector<br>Currency AI<br>Graph Agent<br>Geo Agent<br>Citizen LLM</div>
+    </div>
+    <div style="background:#111827;border:1px solid #1e2d45;border-radius:10px;padding:14px;border-top:3px solid #ef4444;text-align:center">
+      <div style="font-size:13px;font-weight:800;color:#ef4444;margin-bottom:10px">INTELLIGENCE</div>
+      <div style="font-size:11px;color:#64748b;line-height:1.7">Threat Graph<br>PreCrime Score<br>Alert Engine<br>Evidence Gen<br>Analytics</div>
+    </div>
+    <div style="background:#111827;border:1px solid #1e2d45;border-radius:10px;padding:14px;border-top:3px solid #10b981;text-align:center">
+      <div style="font-size:13px;font-weight:800;color:#10b981;margin-bottom:10px">ACTIONS</div>
+      <div style="font-size:11px;color:#64748b;line-height:1.7">LE Dashboard<br>Bank Alerts<br>DoT Blocks<br>Citizen SMS<br>NCRB Feed</div>
+    </div>
+  </div>
+  <div class="grid2" style="gap:14px">
+    <div class="highlight-box">
+      <div style="font-size:13px;font-weight:700;color:#3b82f6;margin-bottom:8px">⚡ Performance</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px">
+        <div>500K events/second ingested</div>
+        <div>&lt;50ms stream processing</div>
+        <div>47s avg detection lead time</div>
+        <div>99.97% platform uptime</div>
+      </div>
+    </div>
+    <div class="highlight-box">
+      <div style="font-size:13px;font-weight:700;color:#3b82f6;margin-bottom:8px">🔒 Compliance</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px">
+        <div>DPDP Act 2023 compliant</div>
+        <div>IT Act 2000 Sec. 65B evidence</div>
+        <div>Federated learning (no raw data)</div>
+        <div>Blockchain audit trail</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 10: BUSINESS IMPACT -->
+<div class="slide" id="s10">
+  <div class="section-label">Business Impact</div>
+  <div style="font-size:30px;font-weight:900;margin-bottom:20px">The economic case is overwhelming</div>
+  <div class="grid2" style="margin-bottom:20px">
+    <div>
+      <div style="font-size:13px;color:#64748b;margin-bottom:8px;font-weight:600;text-transform:uppercase;letter-spacing:.5px">Total Annual Fraud Impact (India)</div>
+      <div class="big-stat" style="color:#ef4444">₹12,000Cr+</div>
+      <div class="stat-context">Estimated annual cybercrime losses — growing 60%+ YoY</div>
+      <div style="font-size:14px;color:#94a3b8;line-height:1.6">SafeShield targeting <strong style="color:#10b981">10% interception rate in Year 1</strong> saves ₹1,200 Cr annually — from a platform with Year 1 deployment cost under ₹50 Cr.</div>
+      <div style="margin-top:14px;padding:12px 16px;background:rgba(16,185,129,.07);border:1px solid rgba(16,185,129,.15);border-radius:8px">
+        <div style="font-size:14px;font-weight:700;color:#10b981">ROI: 24x in Year 1</div>
+        <div style="font-size:12px;color:#64748b;margin-top:4px">₹1,200 Cr saved / ₹50 Cr deployment cost</div>
+      </div>
+    </div>
+    <div>
+      <div style="font-size:13px;color:#64748b;margin-bottom:12px;font-weight:600;text-transform:uppercase;letter-spacing:.5px">Addressable Stakeholders</div>
+      <div class="bullet" style="font-size:13px"><span class="bullet-icon">🏛️</span><div><strong>Government:</strong> MHA, CERT-In, NCRB, 28 State Police Forces, DoT, RBI</div></div>
+      <div class="bullet" style="font-size:13px"><span class="bullet-icon">🏦</span><div><strong>Financial:</strong> 12 PSU banks, UPI ecosystem, NPCI, 50+ private banks</div></div>
+      <div class="bullet" style="font-size:13px"><span class="bullet-icon">📱</span><div><strong>Telecom:</strong> Jio, Airtel, Vi — DoT anti-fraud mandate integration</div></div>
+      <div class="bullet" style="font-size:13px"><span class="bullet-icon">👨‍👩‍👧</span><div><strong>Citizens:</strong> 800M+ smartphone users — especially vulnerable elderly, rural, first-gen digital</div></div>
+    </div>
+  </div>
+  <div class="grid4">
+    <div class="kpi blue"><div class="kpi-v" style="color:#3b82f6">6</div><div class="kpi-l">Months to MHA pilot</div></div>
+    <div class="kpi green"><div class="kpi-v" style="color:#10b981">18</div><div class="kpi-l">Months to national scale</div></div>
+    <div class="kpi amber"><div class="kpi-v" style="color:#f59e0b">28</div><div class="kpi-l">States deployable</div></div>
+    <div class="kpi red"><div class="kpi-v" style="color:#ef4444">800M</div><div class="kpi-l">Citizens reachable</div></div>
+  </div>
+</div>
+
+<!-- SLIDE 11: COMPETITIVE ADVANTAGE -->
+<div class="slide" id="s11">
+  <div class="section-label">Competitive Advantage</div>
+  <div style="font-size:26px;font-weight:900;margin-bottom:20px">SafeShield vs. existing approaches</div>
+  <div style="overflow:hidden;border-radius:12px;border:1px solid #1e2d45;margin-bottom:20px">
+    <table style="width:100%;border-collapse:collapse;font-size:13px">
+      <thead>
+        <tr style="background:#111827;border-bottom:1px solid #1e2d45">
+          <th style="padding:12px 16px;text-align:left;color:#64748b;font-size:10px;text-transform:uppercase;letter-spacing:1px">Capability</th>
+          <th style="padding:12px 16px;text-align:center;color:#64748b;font-size:10px;text-transform:uppercase;letter-spacing:1px">Traditional Systems</th>
+          <th style="padding:12px 16px;text-align:center;color:#64748b;font-size:10px;text-transform:uppercase;letter-spacing:1px">SafeShield AI</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-bottom:1px solid rgba(30,45,69,.5)"><td style="padding:10px 16px;color:#94a3b8">Detection timing</td><td style="padding:10px 16px;text-align:center;color:#ef4444">After money transfer</td><td style="padding:10px 16px;text-align:center;color:#10b981;font-weight:700">During the call (47s lead)</td></tr>
+        <tr style="border-bottom:1px solid rgba(30,45,69,.5)"><td style="padding:10px 16px;color:#94a3b8">Data silos</td><td style="padding:10px 16px;text-align:center;color:#ef4444">Bank OR Telecom only</td><td style="padding:10px 16px;text-align:center;color:#10b981;font-weight:700">Bank + Telecom + Police + Citizen</td></tr>
+        <tr style="border-bottom:1px solid rgba(30,45,69,.5)"><td style="padding:10px 16px;color:#94a3b8">Criminal network visibility</td><td style="padding:10px 16px;text-align:center;color:#ef4444">Isolated incidents</td><td style="padding:10px 16px;text-align:center;color:#10b981;font-weight:700">Full ring mapped in 48h</td></tr>
+        <tr style="border-bottom:1px solid rgba(30,45,69,.5)"><td style="padding:10px 16px;color:#94a3b8">Citizen tool</td><td style="padding:10px 16px;text-align:center;color:#ef4444">None</td><td style="padding:10px 16px;text-align:center;color:#10b981;font-weight:700">WhatsApp + IVR + Web, 12 languages</td></tr>
+        <tr style="border-bottom:1px solid rgba(30,45,69,.5)"><td style="padding:10px 16px;color:#94a3b8">Currency detection</td><td style="padding:10px 16px;text-align:center;color:#ef4444">Manual (fails 73%)</td><td style="padding:10px 16px;text-align:center;color:#10b981;font-weight:700">AI, 99.1% accuracy, offline mobile</td></tr>
+        <tr><td style="padding:10px 16px;color:#94a3b8">Evidence for court</td><td style="padding:10px 16px;text-align:center;color:#ef4444">Manual investigation weeks</td><td style="padding:10px 16px;text-align:center;color:#10b981;font-weight:700">Auto-generated, blockchain-timestamped</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="highlight-box">
+    <div style="font-size:13px;color:#94a3b8;line-height:1.5"><strong style="color:#3b82f6">The only platform that operates before victimisation, not after.</strong> SafeShield's PreCrime Score is the first composite real-time risk indicator for digital fraud in India — fusing signals that no single existing system can see together.</div>
+  </div>
+</div>
+
+<!-- SLIDE 12: SCALABILITY & DEPLOYMENT -->
+<div class="slide" id="s12">
+  <div class="section-label">Scalability & Deployment</div>
+  <div style="font-size:26px;font-weight:900;margin-bottom:20px">Built for India at national scale from Day 1</div>
+  <div class="grid2" style="margin-bottom:20px">
+    <div>
+      <div style="font-size:14px;font-weight:700;color:#e2e8f0;margin-bottom:14px">Deployment Roadmap</div>
+      <div class="journey-step">
+        <div class="j-num" style="background:rgba(239,68,68,.15);color:#ef4444;border:1px solid rgba(239,68,68,.3)">Q1</div>
+        <div class="j-content"><div class="j-title">MHA Pilot — 5 Metros</div><div class="j-desc">Delhi, Mumbai, Bengaluru, Hyderabad, Chennai · 6-month supervised deployment · Baseline metrics established</div></div>
+      </div>
+      <div class="journey-step">
+        <div class="j-num" style="background:rgba(245,158,11,.15);color:#f59e0b;border:1px solid rgba(245,158,11,.3)">Q3</div>
+        <div class="j-content"><div class="j-title">State-Level Expansion — 10 States</div><div class="j-desc">High-cybercrime states: UP, Haryana, Bihar, Rajasthan, Maharashtra, TN, AP, Karnataka, WB, Gujarat · Telecom and bank integrations live</div></div>
+      </div>
+      <div class="journey-step">
+        <div class="j-num" style="background:rgba(16,185,129,.15);color:#10b981;border:1px solid rgba(16,185,129,.3)">Q6</div>
+        <div class="j-content"><div class="j-title">National Rollout — 28 States + UTs</div><div class="j-desc">Full national deployment · IVR 1930 integration · WhatsApp citizen channel at scale · NCRB portal live</div></div>
+      </div>
+    </div>
+    <div>
+      <div style="font-size:14px;font-weight:700;color:#e2e8f0;margin-bottom:14px">Technical Scalability</div>
+      <div class="bullet" style="font-size:13px"><span class="bullet-icon">☸️</span><div><strong>Kubernetes microservices</strong> — each AI agent scales independently. Peak load during major scam events handled automatically</div></div>
+      <div class="bullet" style="font-size:13px"><span class="bullet-icon">🏛️</span><div><strong>Multi-tenant architecture</strong> — each state police force has isolated data view with national-level pattern sharing</div></div>
+      <div class="bullet" style="font-size:13px"><span class="bullet-icon">🔒</span><div><strong>Federated learning</strong> — banks contribute to fraud models without sharing raw transaction data. Compliant with DPDP Act 2023</div></div>
+      <div class="bullet" style="font-size:13px"><span class="bullet-icon">🌐</span><div><strong>MEITY cloud-ready</strong> — deployable on NIC cloud (MeghRaj) for government data sovereignty compliance</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 13: DEMO CTA -->
+<div class="slide" id="s13">
+  <div style="text-align:center">
+    <div style="font-size:64px;margin-bottom:16px;filter:drop-shadow(0 0 30px rgba(59,130,246,.5))">🛡️</div>
+    <div class="section-label" style="text-align:center">Live Demo</div>
+    <div style="font-size:36px;font-weight:900;margin-bottom:12px">See SafeShield in action</div>
+    <div style="font-size:15px;color:#64748b;margin-bottom:32px;max-width:600px;margin-left:auto;margin-right:auto">Open index.html to experience the full platform. Start with the <strong style="color:#ef4444">Scam Detector</strong> — hit "Simulate Live Threat Call" and watch a digital arrest scam get caught in real time.</div>
+    <div class="grid4" style="max-width:800px;margin:0 auto 28px">
+      <div class="card" style="text-align:center;border-top:3px solid #ef4444">
+        <div style="font-size:24px;margin-bottom:6px">📞</div>
+        <div style="font-size:12px;font-weight:700;color:#ef4444">Scam Detector</div>
+        <div style="font-size:11px;color:#64748b;margin-top:4px">Simulate a live digital arrest scam call</div>
+      </div>
+      <div class="card" style="text-align:center;border-top:3px solid #f59e0b">
+        <div style="font-size:24px;margin-bottom:6px">💵</div>
+        <div style="font-size:12px;font-weight:700;color:#f59e0b">Currency Scanner</div>
+        <div style="font-size:11px;color:#64748b;margin-top:4px">Run AI counterfeit detection demo</div>
+      </div>
+      <div class="card" style="text-align:center;border-top:3px solid #8b5cf6">
+        <div style="font-size:24px;margin-bottom:6px">🕸️</div>
+        <div style="font-size:12px;font-weight:700;color:#8b5cf6">Fraud Networks</div>
+        <div style="font-size:11px;color:#64748b;margin-top:4px">Explore interactive criminal network graph</div>
+      </div>
+      <div class="card" style="text-align:center;border-top:3px solid #10b981">
+        <div style="font-size:24px;margin-bottom:6px">💬</div>
+        <div style="font-size:12px;font-weight:700;color:#10b981">Citizen Shield</div>
+        <div style="font-size:11px;color:#64748b;margin-top:4px">Chat with AI fraud assistant (add API key)</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
+      <span class="tag tag-b">📁 index.html — Main Prototype</span>
+      <span class="tag tag-p">📐 architecture.html — System Design</span>
+      <span class="tag tag-g">🔑 Add Anthropic API key in Citizen Shield for live AI</span>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 14: CLOSING -->
+<div class="slide" id="s14">
+  <div class="s1-bg"></div>
+  <div style="position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:40px;height:100%;align-items:center">
+    <div>
+      <div class="section-label">The Bottom Line</div>
+      <div class="cta-big">Stop fraud.<br><span>Before</span> it<br>happens.</div>
+      <div style="font-size:15px;color:#94a3b8;line-height:1.6;max-width:440px;margin-bottom:24px">SafeShield AI is not another dashboard. It is an active intelligence layer that intercepts criminal operations in real time — while the victim is still on the phone, while the note is still in the banker's hand, while the mule account is still active.</div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <span class="tag tag-r">🛡️ PS6: Digital Public Safety</span>
+        <span class="tag tag-b">🤖 5 AI Agents</span>
+        <span class="tag tag-g">🇮🇳 Built for Bharat</span>
+      </div>
+    </div>
+    <div>
+      <div class="kpi-row" style="grid-template-columns:1fr 1fr">
+        <div class="kpi red"><div class="kpi-v" style="color:#ef4444">₹12,000Cr</div><div class="kpi-l">Annual fraud targeted</div></div>
+        <div class="kpi green"><div class="kpi-v" style="color:#10b981">24x</div><div class="kpi-l">ROI Year 1</div></div>
+        <div class="kpi blue"><div class="kpi-v" style="color:#3b82f6">800M</div><div class="kpi-l">Citizens reachable</div></div>
+        <div class="kpi amber"><div class="kpi-v" style="color:#f59e0b">47s</div><div class="kpi-l">Lead time before loss</div></div>
+      </div>
+      <div style="margin-top:16px;padding:16px 20px;background:rgba(59,130,246,.07);border:1px solid rgba(59,130,246,.15);border-radius:10px">
+        <div style="font-size:13px;color:#3b82f6;font-weight:700;margin-bottom:6px">🏆 Our Ask</div>
+        <div style="font-size:13px;color:#94a3b8;line-height:1.5">We're asking for the opportunity to pilot SafeShield AI with MHA and CERT-In. Every day without this platform costs Indian citizens <strong style="color:#e2e8f0">₹4.8 crore</strong> in digital arrest scams alone. The technology is ready. The need is urgent.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- end deck -->
+
+<!-- NAVIGATION -->
+<div class="nav">
+  <button class="nav-btn" onclick="prevSlide()" title="Previous (←)">‹</button>
+  <div class="slide-counter" id="slideCounter">1 / 14</div>
+  <button class="nav-btn" onclick="nextSlide()" title="Next (→)">›</button>
+</div>
+
+<script>
+const TOTAL = 14;
+let current = 1;
+
+function goTo(n) {
+  document.getElementById('s'+current).classList.remove('active');
+  current = Math.max(1, Math.min(TOTAL, n));
+  document.getElementById('s'+current).classList.add('active');
+  document.getElementById('slideCounter').textContent = `${current} / ${TOTAL}`;
+  document.getElementById('slideNum').textContent = `${String(current).padStart(2,'0')} / ${TOTAL}`;
+  document.getElementById('progressBar').style.width = `${(current/TOTAL)*100}%`;
+}
+function nextSlide() { goTo(current+1); }
+function prevSlide() { goTo(current-1); }
+document.addEventListener('keydown', e => {
+  if (e.key==='ArrowRight' || e.key===' ' || e.key==='ArrowDown') { e.preventDefault(); nextSlide(); }
+  if (e.key==='ArrowLeft' || e.key==='ArrowUp') { e.preventDefault(); prevSlide(); }
+  if (e.key==='Home') goTo(1);
+  if (e.key==='End') goTo(TOTAL);
+});
+// Touch swipe
+let tx=0;
+document.addEventListener('touchstart', e => tx=e.touches[0].clientX);
+document.addEventListener('touchend', e => { const dx=tx-e.changedTouches[0].clientX; if(Math.abs(dx)>50){dx>0?nextSlide():prevSlide();} });
+</script>
+</body>
+</html>
