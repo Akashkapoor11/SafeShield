@@ -4,6 +4,8 @@
  */
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8000';
+const CLAUDE_API = 'https://api.anthropic.com/v1/messages';
+const MODEL = 'claude-sonnet-4-6';
 
 // ── Shared fetch helpers ─────────────────────────────────────────────────────
 

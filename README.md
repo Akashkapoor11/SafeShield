@@ -1,6 +1,6 @@
 # 🛡️ SafeShield AI
 ### India's Real-Time Digital Public Safety Intelligence Platform
-**ET AI Hackathon 2026 · Problem Statement 6 · Built with Claude claude-sonnet-4-6**
+**ET AI Hackathon 2026 · Problem Statement 6 · Built with Groq AI (Llama 3.3 70B + Llama 4 Scout Vision)**
 
 [![Open Demo](https://img.shields.io/badge/Demo-Live%20App-blue)](dist/index.html) [![Backend](https://img.shields.io/badge/Backend-FastAPI-green)](backend/)
 
@@ -12,11 +12,11 @@ SafeShield AI is a **multi-agent AI platform** that defeats digital fraud — de
 
 | Agent | Capability | AI Stack |
 |-------|-----------|----------|
-| 📞 Scam Detector | Real-time call analysis — 47s detection lead time | Claude claude-sonnet-4-6 NLP |
-| 💵 Currency Scanner | FICN counterfeit detection in <2s | Claude Vision API |
+| 📞 Scam Detector | Real-time call analysis — 47s detection lead time | Groq Llama 3.3 70B NLP |
+| 💵 Currency Scanner | FICN counterfeit detection in <2s | Groq Llama 4 Scout Vision |
 | 🕸️ Fraud Network | Full criminal ring mapping | D3.js Graph AI |
 | 🗺️ Crime Map | Predictive hotspot intelligence | React-Leaflet + LSTM |
-| 💬 Citizen Shield | Multilingual chatbot — 12 Indian languages | Claude claude-sonnet-4-6 |
+| 💬 Citizen Shield | Multilingual chatbot — 12 Indian languages | Groq Llama 3.3 70B |
 
 ---
 
@@ -43,14 +43,14 @@ npm install && npm run dev
 cd backend
 pip install -r requirements.txt
 cp .env.example .env
-# Add your ANTHROPIC_API_KEY to .env
+# Add your GROQ_API_KEY to .env  (free key at console.groq.com)
 uvicorn main:app --reload
 # → http://localhost:8000
 # → API docs: http://localhost:8000/docs
 ```
 
 ### No Backend? No Problem.
-Enter your Anthropic API key in the app (banner at top of each AI module) → all 5 agents work via direct Claude API.
+Enter your Groq API key in the app → all 5 agents work via direct Groq API. Get a free key at **console.groq.com**.
 
 ---
 
@@ -161,9 +161,9 @@ OSINT                               LSTM (GeoIntel)           Citizen SMS
 ## 🛠️ Tech Stack
 
 **Frontend:** React 18 · Vite 5 · React Router 6 · Recharts · D3.js · React-Leaflet  
-**Backend:** FastAPI · Python 3.11 · Anthropic SDK  
-**AI:** Claude claude-sonnet-4-6 (text + vision) · IndicBERT · GraphSAGE  
-**Infra:** Vercel (frontend) · Railway/Render (backend) · Kubernetes (production)
+**Backend:** FastAPI · Python 3.11 · Groq SDK  
+**AI:** Groq Llama 3.3 70B (text) · Groq Llama 4 Scout Vision (image) · IndicBERT · GraphSAGE  
+**Infra:** Vercel (frontend) · Render (backend) · Kubernetes (production)
 
 ---
 
