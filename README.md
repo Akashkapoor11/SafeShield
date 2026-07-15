@@ -1,6 +1,5 @@
 # 🛡️ SafeShield AI
 ### India's Real-Time Digital Public Safety Intelligence Platform
-**ET AI Hackathon 2026 · Problem Statement 6 · Built with Groq AI (Llama 3.3 70B + Llama 4 Scout Vision)**
 
 ---
 
