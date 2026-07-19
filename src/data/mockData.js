@@ -1,35 +1,49 @@
+/**
+ * SafeShield AI — Intelligence Feed Data
+ * ET AI Hackathon 2026 | PS6 | Akash Kapoor
+ * Realistic simulation data seeded from NCRB 2023 Annual Report & MHA Cybercrime data
+ */
+
 export const ALERT_TICKER = [
-  '🔴 LIVE — Digital Arrest Scam active | Mumbai | Spoofed: +91-11-2309-XXXX (CBI) | Score: 98.7%',
-  '⚠️ ALERT — FICN Cluster: 14 fake ₹500 notes — 4 banks | Connaught Place, New Delhi',
-  '✅ BLOCKED — Wire transfer ₹8.5L intercepted | Victim: Pune | SafeShield real-time intervention',
-  '🔴 LIVE — Investment Scam "GrowthMax" — 83 victims | ₹1.8Cr cumulative loss',
+  '🔴 LIVE — Digital Arrest Scam active | Mumbai suburban | Spoofed: +91-11-2309-XXXX (CBI) | Threat: 98.7%',
+  '⚠️ ALERT — FICN Cluster: 14 fake ₹500 notes — 4 PSU banks | Connaught Place, New Delhi',
+  '✅ BLOCKED — Wire transfer ₹8.5L intercepted | Victim: Wakad, Pune | SafeShield intervention',
+  '🔴 LIVE — Investment Scam "GrowthMax" — 83 victims | ₹1.8Cr cumulative loss | Telegram group',
   '⚠️ ALERT — Phishing domain: edigitalarrest-mha.in — Takedown request sent to NCIIPC',
+  '✅ BLOCKED — OTP-based bank fraud stopped | Victim: Jaipur | SBI account freeze triggered',
+  '🔴 LIVE — Pig-butchering ring — 41 NRI victims | ₹3.2Cr | App: "WealthBridge Pro"',
 ];
 
 export const ALERTS = [
-  { t:'critical', txt:'Digital Arrest Scam — Active call | Mumbai | Spoofed IB Director +91-11-2734-XXXX', time:'Just now' },
-  { t:'critical', txt:'Suspicious UPI chain ₹4.2L — 7 accounts | Mule network | Delhi-Noida', time:'2 min ago' },
-  { t:'warning', txt:'FICN ₹500 cluster — 12 notes in 3 banks | Connaught Place', time:'5 min ago' },
-  { t:'info', txt:'SafeShield blocked ₹8.5L transfer — Victim protected | Pune', time:'8 min ago' },
-  { t:'critical', txt:'Pig-butchering ring — 47 victims | ₹1.2Cr | Platform: GrowthMax', time:'11 min ago' },
-  { t:'warning', txt:'Phishing domain: edigitalarrest-mha.in — Takedown initiated', time:'14 min ago' },
-  { t:'info', txt:'New mule cluster — 9 accounts | Rajasthan', time:'18 min ago' },
-  { t:'critical', txt:'Money mule RTGS ₹23.1L | Hyderabad–Chennai | 5 accounts', time:'29 min ago' },
+  { t:'critical', txt:'Digital Arrest Scam — Active call | Andheri, Mumbai | Caller impersonating IB Director +91-11-2734-XXXX', time:'Just now' },
+  { t:'critical', txt:'Suspicious UPI chain ₹4.2L — 7 accounts | Mule network | Delhi-Noida corridor', time:'2 min ago' },
+  { t:'warning',  txt:'FICN ₹500 cluster — 12 notes in 3 PSU banks | Connaught Place, New Delhi', time:'5 min ago' },
+  { t:'info',     txt:'SafeShield blocked ₹8.5L transfer — Victim protected | Wakad, Pune', time:'8 min ago' },
+  { t:'critical', txt:'Pig-butchering ring — 47 victims | ₹1.2Cr | Platform: WealthBridge Pro', time:'11 min ago' },
+  { t:'warning',  txt:'Phishing domain: edigitalarrest-mha.in — Takedown initiated with NCIIPC', time:'14 min ago' },
+  { t:'info',     txt:'New mule cluster — 9 SBI accounts frozen | Barmer, Rajasthan', time:'18 min ago' },
+  { t:'critical', txt:'Money mule RTGS ₹23.1L | Hyderabad–Chennai axis | 5-node chain', time:'29 min ago' },
 ];
 
 export const LIVE_ALERTS = [
-  { t:'critical', txt:'NEW: Digital arrest scam — Victim: Retired banker | ₹32L at risk | INTERVENING' },
-  { t:'warning', txt:'NEW: Suspicious transactions | Bank: SBI | 4-node account cluster' },
-  { t:'info', txt:'NEW: Fraud ring link confirmed — Meerut ↔ Dubai connection' },
-  { t:'critical', txt:'NEW: WhatsApp OTP scam — 8 victims in last hour | Elderly targeted' },
+  { t:'critical', txt:'NEW: Digital arrest scam — Victim: Retired teacher, 67F | ₹32L at risk | INTERVENING NOW' },
+  { t:'warning',  txt:'NEW: Suspicious IMPS activity | Bank: SBI Varanasi | 4-node account cluster identified' },
+  { t:'info',     txt:'NEW: Fraud ring node confirmed — Meerut ↔ Dubai hawala connection' },
+  { t:'critical', txt:'NEW: WhatsApp OTP scam — 8 victims in last hour | Senior citizens targeted' },
+  { t:'warning',  txt:'NEW: Fake TRAI officer call — number disconnection threat | Bhopal area code' },
+  { t:'critical', txt:'NEW: Investment app fraud — ₹56L at risk | 41 victims | "StockEdge Pro" fake app' },
+  { t:'info',     txt:'NEW: FICN seizure — ₹500 series | Ghaziabad branch | RBI notified' },
+  { t:'warning',  txt:'NEW: KYC scam SMS campaign — Impersonating HDFC Bank | 1,200 recipients flagged' },
+  { t:'critical', txt:'NEW: Video call custody scam — Victim held 14 hours | Mysuru | Active intervention' },
+  { t:'info',     txt:'NEW: Mule account bust — 6 accounts frozen | Chandigarh | ₹17.3L recovered' },
 ];
 
 export const INVESTIGATIONS = [
-  { id:'SS-2026-4821', type:'Digital Arrest', amount:'₹42.5L', amtColor:'red', status:'Active', statusClass:'pill-r' },
-  { id:'SS-2026-4819', type:'Pig Butchering', amount:'₹1.2Cr', amtColor:'red', status:'Active', statusClass:'pill-r' },
-  { id:'SS-2026-4815', type:'FICN Ring', amount:'₹18L', amtColor:'amber', status:'Monitor', statusClass:'pill-a' },
-  { id:'SS-2026-4809', type:'Job Fraud', amount:'₹8.3L', amtColor:'red', status:'Monitor', statusClass:'pill-a' },
-  { id:'SS-2026-4801', type:'UPI Mule Chain', amount:'₹23.1L', amtColor:'red', status:'Active', statusClass:'pill-r' },
+  { id:'SS-2026-4871', type:'Digital Arrest', amount:'₹42.5L', amtColor:'red',   status:'Active',   statusClass:'pill-r' },
+  { id:'SS-2026-4819', type:'Pig Butchering', amount:'₹1.2Cr', amtColor:'red',   status:'Active',   statusClass:'pill-r' },
+  { id:'SS-2026-4815', type:'FICN Ring',      amount:'₹18L',   amtColor:'amber', status:'Monitor',  statusClass:'pill-a' },
+  { id:'SS-2026-4809', type:'Job Fraud',      amount:'₹8.3L',  amtColor:'red',   status:'Monitor',  statusClass:'pill-a' },
+  { id:'SS-2026-4801', type:'UPI Mule Chain', amount:'₹23.1L', amtColor:'red',   status:'Active',   statusClass:'pill-r' },
   { id:'SS-2026-4788', type:'Investment App', amount:'₹56.8L', amtColor:'green', status:'Closed ✓', statusClass:'pill-g' },
 ];
 
@@ -100,13 +114,9 @@ export const CURRENCY_CHECKS = [
   { icon:'🖨️', lbl:'Intaglio Print Quality', result:'INTAGLIO ABSENT', color:'#ef4444', score:89 },
 ];
 
-export const CLAUDE_SYSTEM = `You are SafeShield AI, India's citizen fraud protection assistant. Help detect fraud instantly.
-
+// Groq-compatible system prompt (used as inline fallback if API unavailable)
+export const SAFESHIELD_FALLBACK_PROMPT = `You are SafeShield AI, India's citizen fraud protection assistant.
 ALWAYS give: 1) VERDICT (SCAM/LIKELY SCAM/SAFE) with confidence %, 2) immediate action steps, 3) relevant helpline.
+Key facts: Digital arrest = 100% SCAM. You never need PIN to receive UPI. Helpline: 1930. Report: cybercrime.gov.in.
+If emergency: give steps first, explain later. Be calm and clear. Under 200 words. Support Hindi.`;
 
-Key facts:
-- Digital arrest = 100% SCAM. No government agency uses video call arrest.
-- You never need PIN to receive UPI money. Anyone asking = scammer.
-- Call 1930 for cybercrime. Report at cybercrime.gov.in.
-
-If emergency ("being scammed now"): give steps first, explain later. Be calm and clear. Under 200 words. Support Hindi when user writes Hindi.`;
