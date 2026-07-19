@@ -14,8 +14,8 @@ export default function ApiKeyBar() {
         display: 'flex', alignItems: 'center', gap: 10, fontSize: 12,
       }}>
         <span>🟢</span>
-        <span style={{ color: '#10b981', fontWeight: 700 }}>Groq AI Backend Online</span>
-        <span style={{ color: '#64748b' }}>— Real-time AI analysis active · Llama 3.3 70B + Llama 4 Scout Vision</span>
+        <span style={{ color: '#10b981', fontWeight: 700 }}>OpenRouter AI Backend Online</span>
+        <span style={{ color: '#64748b' }}>— Real-time AI analysis active · Llama 3.3 70B + Llama Vision via OpenRouter</span>
         <a href={`${import.meta.env.VITE_BACKEND_URL || 'http://localhost:8000'}/docs`}
           target="_blank" rel="noreferrer"
           style={{ marginLeft: 'auto', color: '#3b82f6', fontSize: 11, textDecoration: 'none' }}>

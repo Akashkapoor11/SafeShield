@@ -5,7 +5,7 @@ import ApiKeyBar from '../components/ApiKeyBar';
 
 const WELCOME_MSG = {
   role: 'bot',
-  text: `👋 Namaste! I'm **SafeShield AI** — your personal fraud protection assistant.\n\nTell me about any suspicious call, message, or payment request. I'll give you an instant verdict and tell you exactly what to do next.\n\nI also speak **Hindi** — बस हिन्दी में लिखें, मैं उसी भाषा में जवाब दूंगा।\n\n💡 *Powered by Groq Llama 3.3 70B via backend — or add your Groq API key for direct mode*`,
+  text: `👋 Namaste! I'm **SafeShield AI** — your personal fraud protection assistant.\n\nTell me about any suspicious call, message, or payment request. I'll give you an instant verdict and tell you exactly what to do next.\n\nI also speak **Hindi** — बस हिन्दी में लिखें, मैं उसी भाषा में जवाब दूंगा।\n\n💡 *Powered by OpenRouter AI (Llama 3.3 70B) via backend — or add your OpenRouter key for direct mode*`,
   ts: new Date(),
 };
 
@@ -55,7 +55,7 @@ export default function CitizenShield() {
           reply += `\n\n**Do this now:**\n${result.immediate_actions.map((a, i) => `${i + 1}. ${a}`).join('\n')}`;
         }
         reply += `\n\n📞 **Helpline:** ${result.helpline} | 🌐 **Report:** ${result.report_url}`;
-        if (backendOnline || apiKey) reply += '\n\n*Powered by Groq AI (Llama 3.3 70B)*';
+        if (backendOnline || apiKey) reply += '\n\n*Powered by OpenRouter AI (Llama 3.3 70B)*';
       } else {
         reply = result.message || 'Analysis complete. Please call 1930 if you need immediate assistance.';
       }
@@ -97,7 +97,7 @@ export default function CitizenShield() {
               <div>
                 <div className="ch-name">SafeShield AI</div>
                 <div className="ch-status">
-                  {backendOnline ? '● Backend Active · Real-time Groq AI' : apiKey ? '● Groq API Active' : '● Smart Fallback Mode'}
+                  {backendOnline ? '● Backend Active · Real-time OpenRouter AI' : apiKey ? '● OpenRouter Active' : '● Smart Fallback Mode'}
                 </div>
               </div>
               <div className="ch-langs">
@@ -127,7 +127,7 @@ export default function CitizenShield() {
                   <div className="msg-bbl">
                     <div style={{ display: 'flex', alignItems: 'center', gap: 8, color: '#94a3b8', fontSize: 12 }}>
                       <div className="dots"><span /><span /><span /></div>
-                      {backendOnline ? 'Groq AI analysing via backend...' : apiKey ? 'Groq Llama 3.3 70B analysing...' : 'Analysing...'}
+                      {backendOnline ? 'OpenRouter AI analysing via backend...' : apiKey ? 'OpenRouter AI analysing...' : 'Analysing...'}
                     </div>
                   </div>
                 </div>

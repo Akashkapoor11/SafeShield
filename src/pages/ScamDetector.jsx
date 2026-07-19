@@ -186,14 +186,14 @@ export default function ScamDetector() {
   return (
     <div>
       <div className="pg-title">Digital Arrest Scam Detector</div>
-      <div className="pg-sub">Real-time AI-powered call analysis — Groq Llama 3.3 70B identifies threats before money moves</div>
+      <div className="pg-sub">Real-time AI-powered call analysis — OpenRouter AI (Llama 3.3 70B) identifies threats before money moves</div>
 
-      {/* Status bar — shows backend/Groq status */}
+      {/* Status bar — shows backend/OpenRouter status */}
       <div className="api-bar" style={{ marginBottom:16 }}>
         <span>{apiKey ? '🟢' : '🔑'}</span>
-        <span className="api-lbl">Groq AI Status:</span>
+        <span className="api-lbl">OpenRouter AI Status:</span>
         <span style={{ color:'#94a3b8', fontSize:11 }}>
-          {apiKey ? '✅ Groq API key active — live Llama 3.3 70B analysis enabled' : 'Backend handles AI automatically — or add Groq key via Citizen Shield for direct mode'}
+          {apiKey ? '✅ OpenRouter key active — live Llama 3.3 70B analysis enabled' : 'Backend handles AI automatically — or add OpenRouter key via Citizen Shield for direct mode'}
         </span>
       </div>
 
@@ -270,14 +270,14 @@ export default function ScamDetector() {
               )}
             </div>
 
-            {/* Claude AI Validation panel */}
+            {/* OpenRouter AI Validation panel */}
             {(aiLoading || aiResult) && (
               <div className="card" style={{ border:'1px solid rgba(59,130,246,.3)',background:'rgba(59,130,246,.04)' }}>
-                <div className="card-title" style={{ color:'#3b82f6' }}>🤖 Groq AI Validation</div>
+                <div className="card-title" style={{ color:'#3b82f6' }}>🤖 OpenRouter AI Validation</div>
                 {aiLoading ? (
                   <div style={{ display:'flex',alignItems:'center',gap:10,color:'#94a3b8',fontSize:13 }}>
                     <div className="dots"><span/><span/><span/></div>
-                    Groq Llama 3.3 70B analysing call transcript in real-time...
+                    OpenRouter AI (Llama 3.3 70B) analysing call transcript in real-time...
                   </div>
                 ) : aiResult && (
                   <div style={{ fontSize:12 }}>
@@ -293,7 +293,7 @@ export default function ScamDetector() {
                         {aiResult.recommended_actions.map((a,i) => <div key={i} style={{ color:'#94a3b8',marginBottom:2 }}>{i+1}. {a}</div>)}
                       </div>
                     )}
-                    <div style={{ marginTop:8,fontSize:10,color:'#374151' }}>Powered by Groq AI (Llama 3.3 70B) · {new Date().toLocaleTimeString('en-IN')}</div>
+                    <div style={{ marginTop:8,fontSize:10,color:'#374151' }}>Powered by OpenRouter AI (Llama 3.3 70B) · {new Date().toLocaleTimeString('en-IN')}</div>
                   </div>
                 )}
               </div>
@@ -330,17 +330,17 @@ export default function ScamDetector() {
                 ))}
               </div>
               <button className="btn btn-p" style={{ width:'100%',justifyContent:'center',marginTop:12 }} onClick={runCustomAnalysis} disabled={customLoading||!customText.trim()}>
-                {customLoading ? 'Groq AI Analysing...' : '🤖 Analyse with Groq AI'}
+                {customLoading ? 'OpenRouter AI Analysing...' : '🤖 Analyse with OpenRouter AI'}
               </button>
             </div>
             <div className="insight">
               <div className="insight-t">💡 How This Works</div>
-              Your scenario is sent to the SafeShield AI backend which calls <strong style={{ color:'#3b82f6' }}>Groq Llama 3.3 70B</strong> with a specialised fraud detection system prompt trained on 2,847 Indian scam patterns. Results are structured JSON — not hard-coded.
+              Your scenario is sent to the SafeShield AI backend which calls <strong style={{ color:'#3b82f6' }}>OpenRouter AI (Llama 3.3 70B)</strong> with a specialised fraud detection system prompt trained on 2,847 Indian scam patterns. Results are structured JSON — not hard-coded.
             </div>
           </div>
 
           <div className="card">
-            <div className="card-title">🤖 Groq AI Analysis Result</div>
+            <div className="card-title">🤖 OpenRouter AI Analysis Result</div>
             {!customResult && !customLoading && (
               <div style={{ minHeight:350,display:'flex',alignItems:'center',justifyContent:'center',flexDirection:'column',gap:8,color:'#374151',fontSize:13 }}>
                 <div style={{ fontSize:36 }}>🤖</div>
@@ -350,7 +350,7 @@ export default function ScamDetector() {
             {customLoading && (
               <div style={{ minHeight:350,display:'flex',alignItems:'center',justifyContent:'center',flexDirection:'column',gap:12 }}>
                 <div className="dots"><span/><span/><span/></div>
-                <div style={{ color:'#94a3b8',fontSize:13 }}>Groq Llama 3.3 70B analysing...</div>
+                <div style={{ color:'#94a3b8',fontSize:13 }}>OpenRouter AI analysing...</div>
               </div>
             )}
             {customResult && !customLoading && (
@@ -393,7 +393,7 @@ export default function ScamDetector() {
                   <span className="tag tag-g">🌐 {customResult.report_url}</span>
                   {customResult.estimated_financial_risk && <span className="tag tag-a">💰 Risk: {customResult.estimated_financial_risk}</span>}
                 </div>
-                <div style={{ marginTop:10,fontSize:10,color:'#374151' }}>Powered by Groq AI (Llama 3.3 70B) · {new Date().toLocaleTimeString('en-IN')}</div>
+                <div style={{ marginTop:10,fontSize:10,color:'#374151' }}>Powered by OpenRouter AI (Llama 3.3 70B) · {new Date().toLocaleTimeString('en-IN')}</div>
               </div>
             )}
           </div>

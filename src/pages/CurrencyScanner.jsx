@@ -37,13 +37,13 @@ export default function CurrencyScanner() {
   return (
     <div>
       <div className="pg-title">FICN Currency Authenticator</div>
-      <div className="pg-sub">Groq AI powered counterfeit detection — deployable on mobile, ATM, bank counter, and PoS</div>
+      <div className="pg-sub">OpenRouter AI powered counterfeit detection — deployable on mobile, ATM, bank counter, and PoS</div>
 
       <div className="api-bar" style={{ marginBottom:16 }}>
         <span>🟢</span>
-        <span className="api-lbl">Groq AI Backend:</span>
+        <span className="api-lbl">OpenRouter Backend:</span>
         <span style={{ color:'#94a3b8', fontSize:11 }}>
-          Live AI analysis active — Llama 4 Scout Vision powered
+          Live AI analysis active — Llama Vision powered via OpenRouter
         </span>
       </div>
 
@@ -63,12 +63,12 @@ export default function CurrencyScanner() {
               <button className="btn btn-p" style={{ flex:1,justifyContent:'center' }} onClick={() => fileRef.current?.click()}>📤 Upload Real Image</button>
             </div>
             <div style={{ marginTop:10,fontSize:11,color:'#374151',textAlign:'center' }}>
-              {imageB64 ? '✅ Using your uploaded image → Groq Llama 4 Scout Vision API' : '🤖 Demo mode → Groq AI generates realistic FICN analysis'}
+              {imageB64 ? '✅ Using your uploaded image → OpenRouter Vision API' : '🤖 Demo mode → OpenRouter AI generates realistic FICN analysis'}
             </div>
           </div>
           <div className="card">
             <div className="card-title">Detection Capabilities</div>
-            {[['Denominations','₹10 to ₹2000',null],['Detection Accuracy','99.1%','#10b981'],['Analysis Time','< 2 seconds','#3b82f6'],['Works Offline','Yes (on-device model)','#10b981'],['Deployable On','Mobile · ATM · Bank · PoS',null],['AI Model','Groq Llama 4 Scout Vision','#8b5cf6']].map(([k,v,c],i)=>(
+            {[['Denominations','₹10 to ₹2000',null],['Detection Accuracy','99.1%','#10b981'],['Analysis Time','< 2 seconds','#3b82f6'],['Works Offline','Yes (on-device model)','#10b981'],['Deployable On','Mobile · ATM · Bank · PoS',null],['AI Model','OpenRouter (Llama Vision)','#8b5cf6']].map(([k,v,c],i)=>(
               <div key={i} className="stat-row"><span className="sr-k">{k}</span><span className="sr-v" style={c?{color:c}:{}}>{v}</span></div>
             ))}
             <div className="insight"><div className="insight-t">📊 RBI 2025</div>Record FICN seizures. ₹500 fakes defeat manual detection in <strong style={{color:'#ef4444'}}>73%</strong> of banking operations.</div>
@@ -85,7 +85,7 @@ export default function CurrencyScanner() {
           {stage === 'scanning' && (
             <div style={{ minHeight:400,display:'flex',alignItems:'center',justifyContent:'center',flexDirection:'column',gap:12 }}>
               <div style={{ fontSize:30 }}>🔬</div>
-              <div style={{ color:'#94a3b8',fontWeight:600 }}>Groq AI analysing security features...</div>
+              <div style={{ color:'#94a3b8',fontWeight:600 }}>OpenRouter AI analysing security features...</div>
               <div className="dots"><span/><span/><span/></div>
             </div>
           )}
@@ -132,7 +132,7 @@ export default function CurrencyScanner() {
                 {result.recommended_action}<br/>
                 Reference: <strong style={{ color:'#3b82f6' }}>{result.case_reference}</strong>
               </div>
-              <div style={{ marginTop:8,fontSize:10,color:'#374151' }}>Powered by Groq Llama 4 Scout Vision · {new Date().toLocaleTimeString('en-IN')}</div>
+              <div style={{ marginTop:8,fontSize:10,color:'#374151' }}>Powered by OpenRouter AI (Llama Vision) · {new Date().toLocaleTimeString('en-IN')}</div>
             </div>
           )}
         </div>
