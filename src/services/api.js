@@ -1,11 +1,12 @@
 /**
  * SafeShield AI — API Service Layer
- * Centralises all backend and Groq AI calls with consistent fallback logic
+ * ET AI Hackathon 2026 | PS6: AI for Digital Public Safety | Akash Kapoor
+ * Priority: Backend (OpenRouter via Render) → OpenRouter Direct (browser key) → Smart keyword fallback
  */
 
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8000';
-const CLAUDE_API = 'https://api.anthropic.com/v1/messages';
-const MODEL = 'claude-sonnet-4-6';
+const BACKEND_URL    = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8000';
+const OPENROUTER_API = 'https://openrouter.ai/api/v1/chat/completions';
+const OR_MODEL       = 'meta-llama/llama-3.3-70b-instruct';
 
 // ── Shared fetch helpers ─────────────────────────────────────────────────────
 
@@ -20,25 +21,33 @@ async function backendPost(path, body) {
   return res.json();
 }
 
-async function claudePost(apiKey, system, userContent, maxTokens = 800) {
-  const messages = Array.isArray(userContent)
-    ? [{ role: 'user', content: userContent }]
-    : [{ role: 'user', content: userContent }];
-
-  const res = await fetch(CLAUDE_API, {
+async function openrouterPost(apiKey, systemPrompt, userContent, maxTokens = 800) {
+  const res = await fetch(OPENROUTER_API, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'x-api-key': apiKey,
-      'anthropic-version': '2023-06-01',
+      'Authorization': `Bearer ${apiKey}`,
+      'HTTP-Referer': 'https://safe-shield-beta.vercel.app',
+      'X-Title': 'SafeShield AI',
     },
-    body: JSON.stringify({ model: MODEL, max_tokens: maxTokens, system, messages }),
-    signal: AbortSignal.timeout(20000),
+    body: JSON.stringify({
+      model: OR_MODEL,
+      messages: [
+        { role: 'system', content: systemPrompt },
+        { role: 'user',   content: typeof userContent === 'string' ? userContent : JSON.stringify(userContent) },
+      ],
+      max_tokens: maxTokens,
+      temperature: 0.2,
+      response_format: { type: 'json_object' },
+    }),
+    signal: AbortSignal.timeout(25000),
   });
-  if (!res.ok) throw new Error(`Claude API ${res.status}`);
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(`OpenRouter API ${res.status}: ${err.error?.message || 'Unknown error'}`);
+  }
   const data = await res.json();
-  let text = (data.content?.[0]?.text || '{}').trim();
-  if (text.includes('```')) text = text.split('```')[1].replace(/^json\n?/, '');
+  const text = data.choices?.[0]?.message?.content || '{}';
   return JSON.parse(text);
 }
 
@@ -70,15 +79,15 @@ const SCAM_FALLBACK = {
 };
 
 export async function analyzeCall({ transcript, callerClaimed = '', apiKey = '' }) {
-  // Try backend first
+  // 1. Try backend (OpenRouter via server)
   try {
     return await backendPost('/api/analyze-call', { transcript, caller_claimed: callerClaimed });
   } catch { /* fall through */ }
 
-  // Try direct Claude
+  // 2. Try OpenRouter directly from browser (user-provided key)
   if (apiKey) {
     try {
-      return await claudePost(apiKey, SCAM_SYSTEM, `Caller claimed: ${callerClaimed}\nTranscript: ${transcript}`);
+      return await openrouterPost(apiKey, SCAM_SYSTEM, `Caller claimed: ${callerClaimed}\nTranscript: ${transcript}`);
     } catch { /* fall through */ }
   }
 
@@ -112,25 +121,17 @@ const CURRENCY_FALLBACK = {
 };
 
 export async function analyzeCurrency({ imageBase64 = null, demoMode = false, apiKey = '' }) {
-  // Try backend
+  // 1. Try backend (OpenRouter via server)
   try {
     return await backendPost('/api/analyze-currency', {
       image_base64: imageBase64, denomination: '₹500', demo_mode: demoMode,
     });
   } catch { /* fall through */ }
 
-  // Try direct Claude
-  if (apiKey) {
+  // 2. Try OpenRouter directly from browser (text-only demo mode)
+  if (apiKey && demoMode) {
     try {
-      if (imageBase64 && !demoMode) {
-        const raw = imageBase64.includes(',') ? imageBase64.split(',')[1] : imageBase64;
-        return await claudePost(apiKey, CURRENCY_SYSTEM_VISION, [
-          { type: 'image', source: { type: 'base64', media_type: 'image/jpeg', data: raw } },
-          { type: 'text', text: 'Analyze this currency note for authenticity.' },
-        ], 1000);
-      } else {
-        return await claudePost(apiKey, CURRENCY_SYSTEM_DEMO, 'Generate FICN detection demo for ₹500 note.', 1000);
-      }
+      return await openrouterPost(apiKey, CURRENCY_SYSTEM_DEMO, 'Generate FICN detection demo for ₹500 note.');
     } catch { /* fall through */ }
   }
 
@@ -157,23 +158,39 @@ const SCENARIO_FALLBACK = (desc) => {
 };
 
 export async function analyzeScenario({ description, language = 'en', apiKey = '', history = [] }) {
+  // 1. Try backend (OpenRouter via server)
   try {
     return await backendPost('/api/analyze-scenario', { description, language });
   } catch { /* fall through */ }
 
+  // 2. Try OpenRouter directly from browser (user-provided key)
   if (apiKey) {
     try {
-      const msgs = history.length > 0
-        ? [...history, { role: 'user', content: description }]
-        : [{ role: 'user', content: description }];
-      const res = await fetch(CLAUDE_API, {
+      const historyMsgs = history.slice(-6).map(h => ({ role: h.role === 'bot' ? 'assistant' : h.role, content: h.content }));
+      const messages = [
+        { role: 'system', content: SCENARIO_SYSTEM(language) },
+        ...historyMsgs,
+        { role: 'user', content: description },
+      ];
+      const res = await fetch(OPENROUTER_API, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'x-api-key': apiKey, 'anthropic-version': '2023-06-01' },
-        body: JSON.stringify({ model: MODEL, max_tokens: 800, system: SCENARIO_SYSTEM(language), messages: msgs }),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${apiKey}`,
+          'HTTP-Referer': 'https://safe-shield-beta.vercel.app',
+          'X-Title': 'SafeShield AI',
+        },
+        body: JSON.stringify({
+          model: OR_MODEL,
+          messages,
+          max_tokens: 800,
+          temperature: 0.2,
+          response_format: { type: 'json_object' },
+        }),
+        signal: AbortSignal.timeout(25000),
       });
       const data = await res.json();
-      let text = (data.content?.[0]?.text || '{}').trim();
-      if (text.includes('```')) text = text.split('```')[1].replace(/^json\n?/, '');
+      const text = data.choices?.[0]?.message?.content || '{}';
       return JSON.parse(text);
     } catch { /* fall through */ }
   }

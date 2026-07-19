@@ -1,20 +1,46 @@
 """
 SafeShield AI — Backend API
-FastAPI + Groq (Llama 3.3 70B / Llama 4 Scout Vision) | Digital Public Safety Intelligence
-ET AI Hackathon 2026 — Problem Statement 6
+FastAPI + OpenRouter (Llama 3.3 70B / Llama 3.2 Vision) | Digital Public Safety Intelligence
+ET AI Hackathon 2026 — Problem Statement 6 | Akash Kapoor
 """
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import Optional, List
-from groq import Groq
+from openai import OpenAI
 import json
+import re
 import os
 import random
 from dotenv import load_dotenv
 
 load_dotenv()
+
+
+def parse_llm_json(text: str) -> dict:
+    """Robustly extract JSON from LLM response — handles markdown fences, preamble text, trailing content."""
+    text = text.strip()
+    # 1. Try direct parse first (ideal case)
+    try:
+        return json.loads(text)
+    except json.JSONDecodeError:
+        pass
+    # 2. Strip markdown code fences (``` or ```json)
+    text_clean = re.sub(r'```(?:json)?\s*', '', text)
+    text_clean = re.sub(r'```\s*', '', text_clean).strip()
+    try:
+        return json.loads(text_clean)
+    except json.JSONDecodeError:
+        pass
+    # 3. Extract first complete JSON object from text using regex
+    match = re.search(r'\{[\s\S]*\}', text_clean)
+    if match:
+        try:
+            return json.loads(match.group())
+        except json.JSONDecodeError:
+            pass
+    raise ValueError(f"No valid JSON found in LLM response: {text[:300]}")
 
 app = FastAPI(
     title="SafeShield AI Backend",
@@ -32,15 +58,26 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-TEXT_MODEL   = "llama-3.3-70b-versatile"
-VISION_MODEL = "meta-llama/llama-4-scout-17b-16e-instruct"
+TEXT_MODEL   = "meta-llama/llama-3.3-70b-instruct"
+VISION_MODEL = "meta-llama/llama-3.2-11b-vision-instruct"
+
+OPENROUTER_BASE = "https://openrouter.ai/api/v1"
+SITE_URL = "https://safe-shield-beta.vercel.app"
+SITE_NAME = "SafeShield AI"
 
 
-def get_client() -> Groq:
-    api_key = os.getenv("GROQ_API_KEY")
+def get_client() -> OpenAI:
+    api_key = os.getenv("OPENROUTER_API_KEY")
     if not api_key:
-        raise HTTPException(status_code=500, detail="GROQ_API_KEY not set in environment.")
-    return Groq(api_key=api_key)
+        raise HTTPException(status_code=500, detail="OPENROUTER_API_KEY not set in environment.")
+    return OpenAI(
+        base_url=OPENROUTER_BASE,
+        api_key=api_key,
+        default_headers={
+            "HTTP-Referer": SITE_URL,
+            "X-Title": SITE_NAME,
+        },
+    )
 
 
 # ─── REQUEST / RESPONSE MODELS ──────────────────────────────────────────────
@@ -72,6 +109,7 @@ async def health_check():
         "status": "ok",
         "service": "SafeShield AI Backend",
         "version": "2.0.0",
+        "provider": "OpenRouter",
         "agents": ["ScamDetector", "CurrencyVision", "FraudNetwork", "GeoIntel", "CitizenShield"],
         "model": TEXT_MODEL,
         "vision_model": VISION_MODEL,
@@ -129,12 +167,7 @@ Transcript: {req.transcript}"""
             temperature=0.2,
         )
         text = response.choices[0].message.content.strip()
-        # Strip markdown code fences if present
-        if text.startswith("```"):
-            text = text.split("```")[1]
-            if text.startswith("json"):
-                text = text[4:]
-        return json.loads(text)
+        return parse_llm_json(text)
 
     except (json.JSONDecodeError, Exception) as e:
         # Structured fallback if JSON parse fails
@@ -207,7 +240,7 @@ Check: colour shift ink, security thread, microprint, serial number format, wate
 
 @app.post("/api/analyze-currency", tags=["Agent: Currency Vision"])
 async def analyze_currency(req: CurrencyRequest):
-    """AI-powered counterfeit currency detection using Groq Llama 4 Scout Vision."""
+    """AI-powered counterfeit currency detection using OpenRouter Vision (Llama 3.2 11B Vision)."""
     client = get_client()
 
     try:
@@ -253,11 +286,7 @@ async def analyze_currency(req: CurrencyRequest):
             )
 
         text = response.choices[0].message.content.strip()
-        if text.startswith("```"):
-            text = text.split("```")[1]
-            if text.startswith("json"):
-                text = text[4:]
-        return json.loads(text)
+        return parse_llm_json(text)
 
     except Exception:
         return {
@@ -328,11 +357,7 @@ async def analyze_scenario(req: ScenarioRequest):
             temperature=0.2,
         )
         text = response.choices[0].message.content.strip()
-        if text.startswith("```"):
-            text = text.split("```")[1]
-            if text.startswith("json"):
-                text = text[4:]
-        return json.loads(text)
+        return parse_llm_json(text)
     except Exception:
         return {
             "verdict": "SUSPICIOUS",
